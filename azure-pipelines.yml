@@ -39,7 +39,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     inputs: 
       PathtoPublish: "./ext/wxWidgets/build_release"
-      artifactName: "$WXWIDGETS_CACHE"
+      artifactName: $(WXWIDGETS_CACHE)
     condition: eq(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
     displayName: publish wxWidgets
 - job: deploy
