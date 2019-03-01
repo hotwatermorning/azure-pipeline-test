@@ -10,6 +10,35 @@ jobs:
     displayName: script1
   - script: echo second script line
     displayName: script2
+  - script: |
+      echo "##vso[task.setvariable variable=WXWIDGETS_CACHE]wxwigets_cache_abcde"
+    displayName: collect hashes
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      buildType: specific
+      project: "Terra"
+      pipeline: "azure-pipeline-test-ci"
+      buildVersionToDownload: latest
+      artifactName: $WXWIDGETS_CACHE
+      downloadType: specific
+      downloadPath: ./ext/wxWidgets/build_release
+    condition: ne(variables['FORCE_REBUILD'], 'true')
+    continueOnError: true
+    displayName: download cache of wxwigets
+  # キャッシュがないときに限りビルドとアップロードを行う
+  - script: |
+      if [ ! -d "./ext/wxWidgets/build_release" ]; then
+        mkdir -p "./ext/wxWidgets/build_release"
+        echo "dummy contents for wxWidgets" > "./ext/wxWidgets/build_release/dummy.txt"
+        echo "##vso[[task.setvariable variable=SHOULD_UPLOAD_WXWIDGETS]true"
+      fi
+    displayName: build wxWidgets
+  - task: PublishBuildArtifacts@1
+    inputs: 
+      PathtoPublish: "./ext/wxWidgets/build_release"
+      artifactName: $WXWIDGETS_CACHE
+    condition: eq(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
+    displayName: publish wxWidgets
 - job: deploy
   steps:
   - script: echo nothing to do now
