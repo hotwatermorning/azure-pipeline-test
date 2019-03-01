@@ -19,7 +19,7 @@ jobs:
       project: "Terra"
       pipeline: "azure-pipeline-test-ci"
       buildVersionToDownload: latest
-      artifactName: $WXWIDGETS_CACHE
+      artifactName: $(WXWIDGETS_CACHE)
       downloadType: single
       downloadPath: ./ext/wxWidgets/build_release
     condition: ne(variables['FORCE_REBUILD'], 'true')
