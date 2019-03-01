@@ -45,6 +45,9 @@ jobs:
 - job: deploy
   steps:
   - script: |
+      echo "##vso[task.setvariable variable=WXWIDGETS_CACHE]wxwigets_cache_abcde"
+    displayName: collect hashes
+  - script: |
       echo "cache name : $WXWIDGETS_CACHE" 
     displayName: show cache name
   # 必ず存在するはず
