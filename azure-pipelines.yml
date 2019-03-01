@@ -25,14 +25,15 @@ jobs:
     condition: ne(variables['FORCE_REBUILD'], 'true')
     continueOnError: true
     displayName: download cache of wxwigets
-  - script: ls -laR ./ext
-    displayName: show ext directory
   # キャッシュがないときに限りビルドとアップロードを行う
   - script: |
       if [ ! -d "./ext/wxWidgets/build_release" ]; then
+        echo "build wxWidgets"
         mkdir -p "./ext/wxWidgets/build_release"
         echo "dummy contents for wxWidgets" > "./ext/wxWidgets/build_release/dummy.txt"
         echo "##vso[task.setvariable variable=SHOULD_UPLOAD_WXWIDGETS]true"
+      else
+        echo "use cached wxWidgets"
       fi
     displayName: build wxWidgets
   - task: PublishBuildArtifacts@1
