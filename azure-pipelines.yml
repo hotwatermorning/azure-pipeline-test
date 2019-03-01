@@ -11,7 +11,7 @@ jobs:
   - script: echo second script line
     displayName: script2
   - script: |
-      echo "##vso[task.setvariable variable=WXWIDGETS_CACHE]wxwigets_cache_abcde"
+      echo "##vso[task.setvariable variable=WXWIDGETS_CACHE]wxwigets_cache_abcdef"
     displayName: collect hashes
   - task: DownloadBuildArtifacts@0
     inputs:
