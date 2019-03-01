@@ -20,7 +20,7 @@ jobs:
       pipeline: "azure-pipeline-test-ci"
       buildVersionToDownload: latest
       artifactName: $WXWIDGETS_CACHE
-      downloadType: specific
+      downloadType: single
       downloadPath: ./ext/wxWidgets/build_release
     condition: ne(variables['FORCE_REBUILD'], 'true')
     continueOnError: true
@@ -59,7 +59,7 @@ jobs:
       buildVersionToDownload: latest
       allowPartiallySucceededBuilds: true
       artifactName: $(WXWIDGETS_CACHE)
-      downloadType: specific
+      downloadType: single
       downloadPath: ./ext/wxWidgets/build_release
     displayName: download wxwidgets cache
   - script: |
