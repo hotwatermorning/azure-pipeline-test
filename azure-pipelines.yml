@@ -25,7 +25,7 @@ jobs:
     condition: ne(variables['FORCE_REBUILD'], 'true')
     continueOnError: true
     displayName: download cache of wxwigets
-  - script: ll -laR ./ext
+  - script: ls -laR ./ext
     displayName: show ext directory
   # キャッシュがないときに限りビルドとアップロードを行う
   - script: |
