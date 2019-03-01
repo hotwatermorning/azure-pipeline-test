@@ -44,6 +44,12 @@ jobs:
     displayName: publish wxWidgets
 - job: deploy
   steps:
+  # 必ず存在するはず
+  - task: DownloadBuildArtifacts@0
+    inputs:
+      artifactName: wxwigets_cache_abcde
+      downloadPath: "./ext/wxWidgets/build_release"
+    displayName: download wxwidgets cache
   - script: |
       echo download artifacts
       ls -laR ./ext
