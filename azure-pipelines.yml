@@ -47,8 +47,14 @@ jobs:
   # 必ず存在するはず
   - task: DownloadBuildArtifacts@0
     inputs:
-      artifactName: wxwigets_cache_abcde
-      downloadPath: "./ext/wxWidgets/build_release"
+      buildType: specific
+      project: "Terra"
+      pipeline: "azure-pipeline-test-ci"
+      buildVersionToDownload: latest
+      artifactName: $WXWIDGETS_CACHE
+      downloadType: specific
+      downloadPath: ./ext/wxWidgets/build_release
+    condition: ne(variables['FORCE_REBUILD'], 'true')
     displayName: download wxwidgets cache
   - script: |
       echo download artifacts
