@@ -19,6 +19,7 @@ jobs:
       project: "Terra"
       pipeline: "azure-pipeline-test-ci"
       buildVersionToDownload: latest
+      allowPartiallySucceededBuilds: true
       artifactName: $(WXWIDGETS_CACHE)
       downloadType: single
       downloadPath: ./ext/wxWidgets/build_release
@@ -37,8 +38,8 @@ jobs:
       fi
     displayName: build wxWidgets
   - task: PublishBuildArtifacts@1
-    inputs: 
-      PathtoPublish: "./ext/wxWidgets/build_release"
+    inputs:
+      pathtoPublish: "./ext/wxWidgets/build_release"
       artifactName: $(WXWIDGETS_CACHE)
     condition: eq(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
     displayName: publish wxWidgets
