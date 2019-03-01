@@ -77,9 +77,14 @@ jobs:
     displayName: download wxwidgets cache from current build
     condition: eq(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
   - script: |
-      echo download artifacts
+      echo confirm artifacts
       ls -laR ./ext
-    displayName: deploy script
+    displayName: confirm artifacts
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "./ext/wxWidgets/build_release"
+      artifactName: Products
+    displayName: publish products
   dependsOn: build_osx
   condition: succeeded()
 
