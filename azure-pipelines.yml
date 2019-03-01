@@ -42,9 +42,11 @@ jobs:
     inputs:
       pathtoPublish: "./ext/wxWidgets/build_release"
       artifactName: $(WXWIDGETS_CACHE)
-    condition: eq(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
+    condition: eq(variables['build_wxwidgets.SHOULD_UPLOAD_WXWIDGETS'], 'true')
     displayName: publish wxWidgets
 - job: deploy
+  variables:
+    SHOULD_UPLOAD_WXWIDGETS: $[ dependencies.build_osx.outputs['build_wxwidgets.SHOULD_UPLOAD_WXWIDGETS'] ]
   steps:
   - script: |
       echo "##vso[task.setvariable variable=WXWIDGETS_CACHE]wxwigets_cache_abcde"
@@ -65,7 +67,7 @@ jobs:
       downloadType: single
       downloadPath: ./ext/wxWidgets/build_release
     displayName: download wxwidgets cache from a successful build
-    condition: ne(dependencies.build_osx.outputs['build_wxwidgets.SHOULD_UPLOAD_WXWIDGETS'], 'true')
+    condition: ne(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
   - task: DownloadBuildArtifacts@0
     inputs:
       buildType: current
@@ -73,7 +75,7 @@ jobs:
       downloadType: single
       downloadPath: ./ext/wxWidgets/build_release
     displayName: download wxwidgets cache from current build
-    condition: eq(dependencies.build_osx.outputs['build_wxwidgets.SHOULD_UPLOAD_WXWIDGETS'], 'true')
+    condition: eq(variables['SHOULD_UPLOAD_WXWIDGETS'], 'true')
   - script: |
       echo download artifacts
       ls -laR ./ext
