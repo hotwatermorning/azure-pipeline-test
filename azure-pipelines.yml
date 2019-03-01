@@ -1,0 +1,18 @@
+variables:
+  DEVELOPER_DIR: "/Applications/Xcode_9.3.1.app"
+jobs:
+- job: build_osx
+  pool: vmImage: "macOS-10.13"
+  timeoutInMinutes: 10
+  steps:
+  - script: echo hello world
+    displayName: script1
+  - script: echo second script line
+    displayName: script2
+- job: deploy
+  steps:
+  - script: echo nothing to do now
+    displayName: deploy script
+  dependsOn: build_osx
+  condition: succeeded()
+
