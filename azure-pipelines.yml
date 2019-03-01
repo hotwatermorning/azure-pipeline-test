@@ -57,7 +57,7 @@ jobs:
       project: "Terra"
       pipeline: "azure-pipeline-test-ci"
       buildVersionToDownload: latest
-      artifactName: $WXWIDGETS_CACHE
+      artifactName: $(WXWIDGETS_CACHE)
       downloadType: specific
       downloadPath: ./ext/wxWidgets/build_release
     displayName: download wxwidgets cache
