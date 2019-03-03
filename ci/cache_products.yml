@@ -1,0 +1,9 @@
+parameters:
+  targetName: ''
+  targetPath: ''
+  targetHash: ''
+
+steps:
+- script: echo hello
+- script: echo world
+- script: echo ${{ parameters.targetName }} ${{ parameters.targetPath }} ${{ parameters.targetHash }}
