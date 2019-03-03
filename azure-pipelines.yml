@@ -15,11 +15,13 @@ jobs:
       targetName: "wxWidgets"
       targetPath: "./ext/wxWidgets"
       targetHash: "abcde"
+      targetArchiveName: "wxwidgets"
   - template: ci/cache_products.yml
     parameters:
       targetName: "Protocol Buffer"
       targetPath: "./ext/protobuf"
       targetHash: "fghij"
+      targetArchiveName: "protobuf"
   - script: |
       echo "##vso[task.setvariable variable=WXWIDGETS_CACHE]wxwigets_cache_abcde"
     displayName: collect hashes

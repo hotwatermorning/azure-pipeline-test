@@ -2,8 +2,12 @@ parameters:
   targetName: ''
   targetPath: ''
   targetHash: ''
+  targetArchiveName: ''
 
 steps:
-- script: echo hello
-- script: echo world
-- script: echo ${{ parameters.targetName }} ${{ parameters.targetPath }} ${{ parameters.targetHash }}
+- script: |
+    echo hello
+    echo world
+    echo ${{ parameters.targetName }}
+    echo ${{ parameters.targetPath }}/${{parameters.targetArchiveName}}_${{ parameters.targetHash }}.zip
+  displayName: fetch cache of ${{ parameters.targetName }}
